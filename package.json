@@ -1,0 +1,23 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "forkify project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderwurst/forkify.git"
+  },
+  "author": "Andrew McMechan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coderwurst/forkify/issues"
+  },
+  "homepage": "https://github.com/coderwurst/forkify#readme",
+  "devDependencies": {
+    "webpack": "^4.30.0"
+  },
+  "dependencies": {}
+}
