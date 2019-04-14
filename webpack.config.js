@@ -7,7 +7,4 @@ module.exports = {
         path: path.resolve(__dirname, 'dist/js'),  // __dirname is node variable for current absolute path + dist/js 
         filename: 'bundle.js'
     },
-
-    mode: 'development'             // no code compression during development
-
 };
