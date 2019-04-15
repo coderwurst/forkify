@@ -7,4 +7,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist/js'),  // __dirname is node variable for current absolute path + dist/js 
         filename: 'bundle.js'
     },
+
+    devServer: {
+        contentBase: './dist'       // code that will be shipped to client (bundle.js, etc)
+    }
 };
