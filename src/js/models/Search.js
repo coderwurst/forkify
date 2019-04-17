@@ -11,9 +11,7 @@ export default class Search {
 
         try {
             const result = await axios(`${searchURL}?key=${key}&q=${this.query}`);
-            console.log(result);
             this.results = result.data.recipes;
-            console.log(this.results);
         } catch (error) {
             alert(error);
         }
