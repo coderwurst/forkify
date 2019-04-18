@@ -4,6 +4,15 @@ export const getInput = () => {
     return elements.searchInput.value;
 };
 
+
+export const clearInput = () => {
+    elements.searchInput.value = '';
+};
+
+export const clearResults = () => {
+    elements.resultsList.innerHTML ='';
+};
+
 /*
 * ' Pasta with tomato and spinach' - default length 17 chars
 * 0 / accumulator + currentElement.length = 5 [Pasta]
@@ -16,6 +25,7 @@ const limitRecipeTitle = (recipeTitle, limit = 17) => {
     const newTitle = [];
     if (recipeTitle.length > limit) {
         // split breaks string into an array based on spaces
+        // reduce used to carry out a callbackfunction on each member of array (forEach), returning single output value
         // accumulator passed in as 2nd argument after callback function
         recipeTitle.split(' ').reduce((accumulator, currentElement) => {
             // check size against limit
@@ -32,7 +42,7 @@ const limitRecipeTitle = (recipeTitle, limit = 17) => {
     // titles less than limit are returned in full
     return recipeTitle;
     
-}
+};
 
 const renderRecipe = (recipe) => {
     const markup = `
