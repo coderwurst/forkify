@@ -35,3 +35,11 @@ elements.searchButton.addEventListener('submit', event => {
 
 const search = new Search('pizza');
 search.getResults();
+
+elements.searchResultsPages.addEventListener('click', event => {
+    /**
+     * pagination buttons are not there on page load - so we have to use what is already there, the results * * section
+     */
+    console.log(event);
+    // TODO add to children
+});
