@@ -22,7 +22,9 @@ const controlSearch = async () => {
 
         clearLoader();
 
-        // 5 display results in UI (once results have been received)
+        // TODO error handling -  check if state.search.results contains response
+
+        // 5. display results in UI (once results have been received)
         searchView.renderResults(state.search.results);
 
     }
@@ -38,8 +40,14 @@ search.getResults();
 
 elements.searchResultsPages.addEventListener('click', event => {
     /**
-     * pagination buttons are not there on page load - so we have to use what is already there, the results * * section
+     * pagination buttons are not there on page load - so we 
+     * have to use what is already there, the results section,
+     * together with .closest to get the appro button
      */
-    console.log(event);
-    // TODO add to children
+    const button = event.target.closest('.btn-inline');
+    if (button) {
+        const goToPage = parseInt(button.dataset.goto);
+        searchView.clearResults();
+        searchView.renderResults(state.search.results, goToPage);
+    }
 });

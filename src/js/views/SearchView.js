@@ -10,7 +10,8 @@ export const clearInput = () => {
 };
 
 export const clearResults = () => {
-    elements.resultsList.innerHTML ='';
+    elements.resultsList.innerHTML = '';
+    elements.searchResultsPages.innerHTML = '';
 };
 
 /*
@@ -61,11 +62,11 @@ const renderRecipe = (recipe) => {
 };
 
 const createButton = (pageNumber, buttonType) => `
-    <button class="btn-inline results__btn--${buttonType} data-goto=${buttonType === 'prev' ? pageNumber - 1 : pageNumber + 1}">
+    <button class="btn-inline results__btn--${buttonType}" data-goto=${buttonType === 'prev' ? pageNumber - 1 : pageNumber + 1}>
+        <span>Page ${buttonType === 'prev' ? pageNumber - 1 : pageNumber + 1}</span>
         <svg class="search__icon">
             <use href="img/icons.svg#icon-triangle-${buttonType === 'prev' ? 'left' : 'right'}"></use>
         </svg>
-        <span>Page ${buttonType === 'prev' ? pageNumber - 1 : pageNumber + 1}</span>
     </button>
     `;
 
