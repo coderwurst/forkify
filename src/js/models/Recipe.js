@@ -31,4 +31,52 @@ export default class Recipe {
     calcServings() {
         this.servings = 4;
     }
+
+    parseIngredients() {
+        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
+        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+        
+        const newIngredients = this.ingredients.map(element => {
+            // 1. uniform units
+            let ingredient = element.toLowerCase();
+            unitsLong.forEach((currentUnit, i) => {
+                ingredient = ingredient.replace(currentUnit, unitsShort[i]);
+            });
+
+            // 2. remove (contents and brackets)
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
+
+            // 3. parse ingredients into count, unit and ingredient
+            // split ingredient into words
+            const arrayIngredient = ingredient.split(' ');
+            const unitIndex = arrayIngredient.findIndex(arrayElement => unitsShort.includes(arrayElement));
+
+            let objectIngredient;
+            if (unitIndex > -1) {
+                // is unit
+                
+
+            } else if(parstInt(arrayIngredient[0], 10)) {
+                // no unit, but 1st element is a number - count 1st element in array, no unit and ingredient includes entire array except 1st element
+                objectIngredient = {
+                    count: parstInt(arrayIngredient[0], 10),
+                    unit: '',
+                    ingredient: arrayIngredient.slice(1).join(' ')
+                }
+            } else if (unitIndex === -1) {
+                // no unit and no number in 1st position - always count 1, unit empty and ingredient used directly
+                objectIngredient = {
+                    count: 1,
+                    unit: '',
+                    ingredient
+                }
+            }
+
+            // 4. map function saves returned element to new array
+            return objectIngredient;
+
+        });
+
+        this.ingredients = newIngredients;
+    }
 }
