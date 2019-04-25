@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { key } from '../config';
+import { key, cors } from '../config';
 
 export default class Recipe {
     constructor (id) {
@@ -10,7 +10,7 @@ export default class Recipe {
         const getURL = 'https://www.food2fork.com/api/get';
 
         try {
-            const result = await axios(`${getURL}?key=${key}&rId=${this.id}`);
+            const result = await axios(`${cors}${getURL}?key=${key}&rId=${this.id}`);
             this.title = result.data.recipe.title;
             this.author = result.data.recipe.publisher;
             this.image = result.data.recipe.image_url;
@@ -54,12 +54,27 @@ export default class Recipe {
             let objectIngredient;
             if (unitIndex > -1) {
                 // is unit
+                const arrayCount = arrayIngredient.slice(0, unitIndex);
                 
+                let count;
+                if (arrayCount.length === 1) {
+                    // example 4 cups === arrayCount 4
+                    count = eval(arrayIngredient[0].replace('-', '+'));
+                } else {                
+                    // example 4 1/2 cups === arrayCount 4 1/2 -> eval("4+1/2") === 4.5
+                    count = eval(arrayIngredient.slice(0, unitIndex).join('+'));
+                }
 
-            } else if(parstInt(arrayIngredient[0], 10)) {
+                objectIngredient = {
+                    count: count,
+                    unit: arrayIngredient[unitIndex],
+                    ingredient: arrayIngredient.slice(unitIndex +1).join(' ')
+                }
+
+            } else if(parseInt(arrayIngredient[0], 10)) {
                 // no unit, but 1st element is a number - count 1st element in array, no unit and ingredient includes entire array except 1st element
                 objectIngredient = {
-                    count: parstInt(arrayIngredient[0], 10),
+                    count: parseInt(arrayIngredient[0], 10),
                     unit: '',
                     ingredient: arrayIngredient.slice(1).join(' ')
                 }

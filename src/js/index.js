@@ -10,9 +10,7 @@ const state = {};
  */
 const controlSearch = async () => {
     // 1. get user input via SearchView
-    // TEST const query = searchView.getInput();
-    const query = 'pizza';
-    
+    const query = searchView.getInput();
 
     if (query) {
         // 2. new search object and add to state
@@ -44,15 +42,6 @@ elements.searchButton.addEventListener('submit', event => {
     controlSearch();
 });
 
-// TESTING
-window.addEventListener('load', event => {
-    event.preventDefault();
-    controlSearch();
-});
-
-const search = new Search('pizza');
-search.getResults();
-
 elements.searchResultsPages.addEventListener('click', event => {
     /**
      * pagination buttons are not there on page load - so we 
@@ -79,11 +68,8 @@ const controlRecipe = async () => {
     if (id) {
         // prepare UI for changes TODO
 
-        // create new recipe object
+        // create new recipe object and parse ingredients
         state.recipe = new Recipe(id);
-        
-        // TESTING
-        window.r = state.recipe;
 
         // get recipe data async in background
         try {
