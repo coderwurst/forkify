@@ -25,7 +25,7 @@ export default class Recipe {
         // assume 15 min for each 3 ingredients
         const numberOfIngredients = this.ingredients.length;
         const periods = Math.ceil(numberOfIngredients / 3);
-        const time = periods * 15;
+        this.time = periods * 15;
     }
 
     calcServings() {
@@ -35,6 +35,7 @@ export default class Recipe {
     parseIngredients() {
         const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
         const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+        const units = [...unitsShort, 'kg', 'g'];
         
         const newIngredients = this.ingredients.map(element => {
             // 1. uniform units
@@ -49,7 +50,7 @@ export default class Recipe {
             // 3. parse ingredients into count, unit and ingredient
             // split ingredient into words
             const arrayIngredient = ingredient.split(' ');
-            const unitIndex = arrayIngredient.findIndex(arrayElement => unitsShort.includes(arrayElement));
+            const unitIndex = arrayIngredient.findIndex(arrayElement => units.includes(arrayElement));
 
             let objectIngredient;
             if (unitIndex > -1) {
