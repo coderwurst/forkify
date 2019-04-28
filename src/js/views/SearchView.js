@@ -14,6 +14,14 @@ export const clearResults = () => {
     elements.searchResultsPages.innerHTML = '';
 };
 
+export const highlightSelected = id => {
+    // remove all previously added styles
+    const resultsArray = Array.from(document.querySelectorAll('results__link'));
+    resultsArray.forEach(element => element.classList.remove('results__link--active'));
+    // select link element using css selector that has the same element as id in url
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+};
+
 /*
 * ' Pasta with tomato and spinach' - default length 17 chars
 * 0 / accumulator + currentElement.length = 5 [Pasta]
@@ -48,7 +56,7 @@ const limitRecipeTitle = (recipeTitle, limit = 17) => {
 const renderRecipe = (recipe) => {
     const markup = `
     <li>
-        <a class="results__link results__link--active" href="#${recipe.recipe_id}">
+        <a class="results__link results__link" href="#${recipe.recipe_id}">
             <figure class="results__fig">
                 <img src="${recipe.image_url}" alt="${recipe.title}">
             </figure>
