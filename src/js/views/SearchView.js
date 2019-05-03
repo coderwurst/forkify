@@ -19,7 +19,7 @@ export const highlightSelected = id => {
     const resultsArray = Array.from(document.querySelectorAll('results__link'));
     resultsArray.forEach(element => element.classList.remove('results__link--active'));
     // select link element using css selector that has the same element as id in url
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
 };
 
 /*
@@ -30,7 +30,7 @@ export const highlightSelected = id => {
 * 15 / accumulator + currentElement.length = 18  [Pasta, with, tomato] ('and' not pushed)
 * 15 / accumulator + currentElement.length = 24  [Pasta, with, tomato] ('Spinich' not pushed)
 */
-const limitRecipeTitle = (recipeTitle, limit = 17) => {
+export const limitRecipeTitle = (recipeTitle, limit = 17) => {
     const newTitle = [];
     if (recipeTitle.length > limit) {
         // split breaks string into an array based on spaces
@@ -56,7 +56,7 @@ const limitRecipeTitle = (recipeTitle, limit = 17) => {
 const renderRecipe = (recipe) => {
     const markup = `
     <li>
-        <a class="results__link results__link" href="#${recipe.recipe_id}">
+        <a class="results__link" href="#${recipe.recipe_id}">
             <figure class="results__fig">
                 <img src="${recipe.image_url}" alt="${recipe.title}">
             </figure>
