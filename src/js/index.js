@@ -94,7 +94,8 @@ const controlRecipe = async () => {
             clearLoader();
             recipeView.renderRecipe(
                 state.recipe, 
-                state.likes.isLiked(id));
+                state.likes.isLiked(id)
+            );
 
         } catch (error) {
             alert('Error processing recipe');
@@ -137,6 +138,10 @@ const controlList = () => {
     });
 }
 
+// testing before persistance
+state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumberLikes);
+
 /**
 * Likes Controller
 */
@@ -144,21 +149,21 @@ const controlLike = () => {
     if(!state.likes) state.likes = new Likes();
     
     const currentId = state.recipe.id;
+    // user has not liked current recipe
     if(!state.likes.isLiked(currentId)) {
-        // user has not liked current recipe
-
         // add to state
-        state.likes.addLike(
+        const newLike = state.likes.addLike(
             state.recipe.id, 
             state.recipe.title,
             state.recipe.author,
-            state.recipe.image)
+            state.recipe.image
+        )
 
         // toggle like button to solid
         likesView.toggleLike(true);
 
         // add recipe to likes list
-        likesView.renderLike(state.likes);
+        likesView.renderLike(newLike);
 
     } else {
         // user has liked recipe
@@ -170,16 +175,17 @@ const controlLike = () => {
         likesView.toggleLike(false);
 
         // remove recipe to likes list
-        likesView.removeLike(state.likes);
+        likesView.removeLike(currentId);
     }
 
+    likesView.toggleLikeMenu(state.likes.getNumberLikes());
 }
 
 
 // handling recipe button clicks
 elements.recipe.addEventListener('click', event => {
+    // decrease button is clicked
     if(event.target.matches('.btn-decrease, .btn-decrease *')) {
-        // decrease button is clicked
         if (state.recipe.servings > 1) {
             state.recipe.updateServings('dec');
             recipeView.updateServingsIngredients(state.recipe);
