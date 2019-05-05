@@ -10,17 +10,16 @@ export const toggleLikeMenu = (numLikes) => {
     elements.likesMenu.style.visibility = numLikes > 0 ? 'visible' : 'hidden';
 };
 
-export const renderLike = (recipe) => {
+export const renderLike = (like) => {
     const markup = `
-    
     <li>
-        <a class="likes__link" href="#${recipe.id}">
+        <a class="likes__link" href="#${like.id}">
             <figure class="likes__fig">
-                <img src="${recipe.image}" alt="${recipe.title}">
+                <img src="${like.image}" alt="${like.title}">
             </figure>
             <div class="likes__data">
-                <h4 class="likes__name">${limitRecipeTitle(recipe.title)}</h4>
-                <p class="likes__author">${recipe.author}</p>
+                <h4 class="likes__name">${limitRecipeTitle(like.title)}</h4>
+                <p class="likes__author">${like.author}</p>
             </div>
         </a>
     </li>
