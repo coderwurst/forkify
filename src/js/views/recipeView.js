@@ -11,18 +11,19 @@ const formatCount = count => {
         ** to use split and the dot to seperate the values, and then create a new array with
         ** map to conver the string back to an int and save to base 10
         */
-        const [int, dec] = count.toString().split('.').map(element => parseInt(element, 10));
+        const newCount = Math.round(count * 10000) / 10000;
+        const [int, dec] = newCount.toString().split('.').map(element => parseInt(element, 10));
         // 1. no decimal
         if (!dec) {
-            return count;
+            return newCount;
         }
         // 2. example integer is 0 i.e. 0.5 --> 1/2
         if(int === 0) {
-            const fractional = new Fraction(count);
+            const fractional = new Fraction(newCount);
             return `${fractional.numerator}/${fractional.denominator}`;
         } else {            
             // 3. example with integer and decimal i.e. 2.5 --> 5/2 (as above) --> 2(integer) 1/2(count - integer)
-            const fractional = new Fraction(count - int);
+            const fractional = new Fraction(newCount - int);
             return `${int} ${fractional.numerator}/${fractional.denominator}`; 
         }
     }
