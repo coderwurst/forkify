@@ -138,10 +138,6 @@ const controlList = () => {
     });
 }
 
-// testing before persistance
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumberLikes);
-
 /**
 * Likes Controller
 */
@@ -180,6 +176,22 @@ const controlLike = () => {
 
     likesView.toggleLikeMenu(state.likes.getNumberLikes());
 }
+
+// restore like recipies on page load
+window.addEventListener('load', () => {
+    // create and fill likes
+    state.likes = new Likes();
+    state.likes.readStorage();
+
+    // show button
+    likesView.toggleLikeMenu(state.likes.getNumberLikes());
+
+    // render likes
+    state.likes.likes.forEach(like => {
+        likesView.renderLike(like);
+    });
+
+});
 
 
 // handling recipe button clicks
